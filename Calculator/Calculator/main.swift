@@ -89,27 +89,15 @@ repeat {
         print("Please enter your Regular Function Operation")
         userNumbers = readLine() ?? ""
         userResponseArray = userNumbers.components(separatedBy: " ")
-        let closureOperation = mathStuffFactory(opString: "+")
-        let result = closureOperation(mathStuffFactory[0] ?? "" , mathStuffFactory[2] ?? "")
-        
-        
-        
-        
-        
+        let closureOperation = mathStuffFactory(opString: userResponseArray[1])
+        let result = closureOperation(Double(userResponseArray[0]) ?? 0.0 , Double(userResponseArray[2]) ?? 0.0)
+        print(result)
         
     } else if  userResponse == userResponseTwo {
         print("Please enter your High Order Function Operaiton")
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         
         
         
