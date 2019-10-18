@@ -168,7 +168,6 @@ repeat {
         let numB = Double(userNumbersBArray[4]) ?? 0.0
         
         
-        
         if userNumbersBArray[0] == "map" {
             switch userNumbersBArray[3] {
             case "*":
@@ -196,34 +195,21 @@ repeat {
                 print(filterRes)
             default:
                 print("Try again!")
+                responseLoop = true
             }
         } else if userNumbersBArray[0] == "reduce" {
             switch userNumbersBArray[3] {
             case "+":
-                var reduceRes = reduceFunc(arr: numBDouble, closure: {$0 + numB})
+                let reduceRes = reduceFunc(arr: numBDouble, closure: {$0 + numB })
+                print(reduceRes + numB)
             case "*":
-                var reduceRes = reduceFunc(arr: numBDouble, closure: {$0 * numB})
+                let reduceRes = reduceFunc(arr: numBDouble, closure: {$0 * numB })
+                print(reduceRes * numB)
             default:
                 print("Try again!")
+                responseLoop = true
             }
         }
-        
-        
-        
-        
-        
-        
-    
-
-        
-        //sperate second value in array based on commas and convert from an array of strings to ints
-        // by > 4 // figure out the array/ location of > and 4
-        // figure out higher order function ( use has prefix to figure out the higher order function
-            // if else statement for map, filter, reduce.
-        //filter operation > using a Filter
-                            // switch >
-                                // case
-                                        // appropriate function
         
         
 //=======================================================================================================
