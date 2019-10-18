@@ -51,18 +51,57 @@ func mathStuffFactory(opString: String) -> (Double, Double) -> Double {
 let closureOperation = mathStuffFactory(opString: "+")
 let result = closureOperation(45 , 5)
 
+let randomOperations = ["+", "-", "/", "*"]
+var randomPick = randomOperations.randomElement()!
+
+
+
+
+// MAP FUNCTION
+func customMap(arr: [Double], closure: (Double) -> Double) -> [Double] {
+   var transformedArr = [Double]()
+   for num in arr {
+       transformedArr.append(closure(num))
+   }
+   return transformedArr
+}
+
+// FILTER FUNCTION
+func filterFunc(arr:[Double], closure:(Double)-> Bool) -> [Double]{
+    var filterResults = [Double]()
+    for num in arr {
+    if closure(num) {
+        filterResults.append(num)
+        }
+    }
+    return filterResults
+}
+        
+// REDUCE FUNCTION
+func reduceFunc(arr:[Double], closure:(Double) -> (Double)) -> Double {
+    var reduceResults = 0.0
+    for num in arr {
+        reduceResults += num
+}
+    return reduceResults
+}
+
+
+print()
 
 
 //======================================================================================
 print("""
-Welcome to David's Calculator! Using this calcuation, you will be able to perform High Order Functions and Regular Functions:
-1. High Order Functions: Multiplying, dividing, or summing an array of a given group of numbers
-2. Regular Function:
+Welcome to David's Calculator! Using this calcuator, you will be able to perform Regular Functions and High Order Functions:
+
+a) Regular Function:
     - Addition (+)
     - Subtraction (-)
     - Multiplication (*)
     - Division (/)
     - Random (will provide you with the output of a random operation) (?)
+
+b) High Order Functions: Multiplying, dividing, or summing an array of a given group of numbers
 
 """)
 print("")
@@ -74,37 +113,121 @@ Enter "a" for Regular Function
 Enter "b" for High Order Function
 """)
 
-var userResponse = readLine() ?? ""
-var userNumbers = readLine() ?? ""
+
 var userResponseArray = [String]()
-let userResponseOne = "a"
-let userResponseTwo = "b"
+let userResponseA = "a"
+let userResponseB = "b"
 
-
+var responseLoop = true
 // switch userResponse {
 
-
+//=======================================================================================================
 repeat {
-    if userResponse == userResponseOne {
+    
+    let userResponseAorB = readLine()?.lowercased() ?? "" // choose a for Reg Func and b for High Order
+
+    if userResponseAorB == userResponseA.lowercased() {
         print("Please enter your Regular Function Operation")
-        userNumbers = readLine() ?? ""
+        let userNumbers = readLine() ?? ""
         userResponseArray = userNumbers.components(separatedBy: " ")
+        if userResponseArray[1] == "?" {
+            userResponseArray[1] = randomPick
+            }
         let closureOperation = mathStuffFactory(opString: userResponseArray[1])
         let result = closureOperation(Double(userResponseArray[0]) ?? 0.0 , Double(userResponseArray[2]) ?? 0.0)
         print(result)
         
-    } else if  userResponse == userResponseTwo {
-        print("Please enter your High Order Function Operaiton")
+        if userResponseArray[1] == randomPick {  // user guessing ?
+        let userGuess = randomPick
+        repeat {
+            print("Guess the operation for \"?\" ")
+            let userGuess = readLine() ?? ""
+            if userGuess == randomPick {
+            print("Wow, you're smart!")
+            } else {
+            print("Please try again!")
+                }
+            } while userGuess != randomPick
+        }
         
         
+        print("Please press enter to go again!")
+        responseLoop = true    // repeat the calculator
+        
+//=======================================================================================================
+        
+    } else if userResponseAorB == userResponseB {     // high order function
+        print("""
+        Please enter your High Order Function Operaiton
+        Ex: filter 1,4,5,8,3,8,9 by > 8
+        """)
+        let userNumberB = readLine() ?? "Not a valid input"
+        let userNumbersBArray = userNumberB.components(separatedBy: " ")
+        let userNumBArrayIndex = userNumbersBArray[1].components(separatedBy: ",")
+        let numBDouble = userNumBArrayIndex.map{Double($0) ?? 0}
+        let numB = Double(userNumbersBArray[4]) ?? 0.0
+        
+        
+        
+        if userNumbersBArray[0] == "map" {
+            switch userNumbersBArray[3] {
+            case "*":
+                let mapResult = customMap(arr: numBDouble, closure: {$0 * numB})
+                print(mapResult)
+            case "+":
+                let mapResult = customMap(arr: numBDouble, closure: {$0 + numB})
+                print(mapResult)
+            case "-":
+                let mapResult = customMap(arr: numBDouble, closure: {$0 - numB})
+                print(mapResult)
+            case "/":
+                let mapResult = customMap(arr: numBDouble, closure: {$0 / numB})
+                print(mapResult)
+            default:
+                print("Try again!")
+            }
+        } else if userNumbersBArray[0] == "filter" {
+            switch userNumbersBArray[3] {
+            case "<":
+                let filterRes = filterFunc(arr: numBDouble, closure: {$0 < numB})
+                print(filterRes)
+            case ">":
+                let filterRes = filterFunc(arr: numBDouble, closure: {$0 > numB})
+                print(filterRes)
+            default:
+                print("Try again!")
+            }
+        } else if userNumbersBArray[0] == "reduce" {
+            switch userNumbersBArray[3] {
+            case "+":
+                var reduceRes = reduceFunc(arr: numBDouble, closure: {$0 + numB})
+            case "*":
+                var reduceRes = reduceFunc(arr: numBDouble, closure: {$0 * numB})
+            default:
+                print("Try again!")
+            }
+        }
+        
+        
+        
+        
+        
+        
+    
 
         
+        //sperate second value in array based on commas and convert from an array of strings to ints
+        // by > 4 // figure out the array/ location of > and 4
+        // figure out higher order function ( use has prefix to figure out the higher order function
+            // if else statement for map, filter, reduce.
+        //filter operation > using a Filter
+                            // switch >
+                                // case
+                                        // appropriate function
         
         
-        
-        
+//=======================================================================================================
     } else {
         print("Please type a or b !")
-        userResponse = readLine() ?? "a"
     }
-} while userResponse != userResponseOne && userResponse != userResponseTwo
+} while responseLoop
