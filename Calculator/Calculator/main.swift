@@ -105,7 +105,7 @@ b) High Order Functions: Multiplying, dividing, or summing an array of a given g
 
 """)
 print("")
-print("🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮🧮")
+print("📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝📝")
 print("")
 print("""
 Please Enter the type of calculation you would like to perform:
@@ -141,17 +141,18 @@ repeat {
         let userGuess = randomPick
         repeat {
             print("Guess the operation for \"?\" ")
-            let userGuess = readLine() ?? ""
+            var userGuess = readLine() ?? ""
             if userGuess == randomPick {
-            print("Wow, you're smart!")
+            print("Wow, you're smart 🧠 !")
             } else {
             print("Please try again!")
+                userGuess = readLine() ?? ""
                 }
             } while userGuess != randomPick
         }
         
         
-        print("Please press enter to go again!")
+        print("Please press \"Return\" to go again!")
         responseLoop = true    // repeat the calculator
         
 //=======================================================================================================
@@ -204,12 +205,14 @@ repeat {
                 print(reduceRes + numB)
             case "*":
                 let reduceRes = reduceFunc(arr: numBDouble, closure: {$0 * numB })
-                print(reduceRes * numB)
+                print(reduceRes + numB)
             default:
                 print("Try again!")
                 responseLoop = true
             }
         }
+        print("Please Press \"Return\" to go again")
+        responseLoop = true
         
         
 //=======================================================================================================
